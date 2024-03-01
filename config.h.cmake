@@ -70,7 +70,9 @@
 #cmakedefine ENABLE_SINC_BEST_CONVERTER
 
 /* The size of `int', as computed by sizeof. */
-#define SIZEOF_INT ${SIZEOF_INT}
+#define SIZEOF_INT \
+    $ { SIZEOF_INT }
 
 /* The size of `long', as computed by sizeof. */
-#define SIZEOF_LONG ${SIZEOF_LONG}
+#define SIZEOF_LONG \
+    $ { SIZEOF_LONG }
