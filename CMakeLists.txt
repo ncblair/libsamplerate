@@ -136,8 +136,7 @@ add_subdirectory(src)
 # if(LIBSAMPLERATE_EXAMPLES)
 # add_subdirectory(examples)
 # endif()
-
-# configure_file(config.h.cmake config.h)
+configure_file(config.h.cmake config.h)
 
 # if(LIBSAMPLERATE_INSTALL)
 # add_subdirectory(docs)
