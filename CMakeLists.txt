@@ -128,11 +128,11 @@ add_subdirectory(src)
 
 # # BUILD_TESTING is declared by CTest module and is ON by default
 # if(BUILD_TESTING)
-<<<<<<< HEAD
 # add_subdirectory(tests)
 # endif()
 
 # # Examples
+
 # if(LIBSAMPLERATE_EXAMPLES)
 # add_subdirectory(examples)
 # endif()
@@ -141,21 +141,6 @@ add_subdirectory(src)
 
 # if(LIBSAMPLERATE_INSTALL)
 # add_subdirectory(docs)
-=======
-#   add_subdirectory(tests)
-# endif()
-
-# # Examples
-
-# if(LIBSAMPLERATE_EXAMPLES)
-#   add_subdirectory(examples)
-# endif()
-
-# configure_file(config.h.cmake config.h)
-
-# if(LIBSAMPLERATE_INSTALL)
-#   add_subdirectory(docs)
->>>>>>> 65914c7e4ec10805972aa3dd5b2f1d81c824fa20
 # endif()
 
 # Packaging support
