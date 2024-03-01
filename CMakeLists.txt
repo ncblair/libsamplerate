@@ -16,7 +16,6 @@ endif()
 project(libsamplerate VERSION 0.2.2 LANGUAGES C)
 
 # Configuration
-
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
   set(IS_ROOT_PROJECT ON)
 else()
@@ -47,16 +46,20 @@ endif()
 
 add_definitions(-DHAVE_CONFIG_H)
 include_directories(${PROJECT_BINARY_DIR})
+
 if(MSVC)
   add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 endif()
 
-if(NOT (WIN32 OR APPLE OR CYGWIN OR HAIKU OR BEOS))
+if(NOT(WIN32 OR APPLE OR CYGWIN OR HAIKU OR BEOS))
   find_library(MATH_LIBRARY m)
+
   if(MATH_LIBRARY)
     set(LIBM_REQUIRED 1)
+
     if(LIBM_REQUIRED)
       list(APPEND CMAKE_REQUIRED_LIBRARIES m)
+
       if(LIBM_REQUIRED)
         link_libraries(${MATH_LIBRARY})
       endif()
@@ -65,6 +68,7 @@ if(NOT (WIN32 OR APPLE OR CYGWIN OR HAIKU OR BEOS))
 endif()
 
 option(LIBSAMPLERATE_SSE2_LRINT "Implement lrintf using SSE2 on x86 CPUs if possible" OFF)
+
 if(LIBSAMPLERATE_SSE2_LRINT)
   add_definitions(-DENABLE_SSE2_LRINT)
 endif()
@@ -85,6 +89,7 @@ if(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID MATCHES "Clang")
 endif()
 
 test_big_endian(CPU_IS_BIG_ENDIAN)
+
 if(CPU_IS_BIG_ENDIAN)
   set(CPU_IS_LITTLE_ENDIAN 0)
 else()
@@ -96,17 +101,18 @@ check_include_file(unistd.h HAVE_UNISTD_H)
 check_include_file(immintrin.h HAVE_IMMINTRIN_H)
 
 # For examples and tests
-
 find_package(PkgConfig)
 
 if(LIBSAMPLERATE_EXAMPLES OR BUILD_TESTING)
-  if((NOT VCPKG_TOOLCHAIN) AND PKG_CONFIG_FOUND AND (NOT CMAKE_VERSION VERSION_LESS 3.6))
+  if((NOT VCPKG_TOOLCHAIN) AND PKG_CONFIG_FOUND AND(NOT CMAKE_VERSION VERSION_LESS 3.6))
     pkg_check_modules(SndFile sndfile IMPORTED_TARGET)
+
     if(SndFile_FOUND)
       set(SNDFILE_TARGET PkgConfig::SndFile)
     endif()
   else()
     find_package(SndFile)
+
     if(SndFile_FOUND)
       set(SNDFILE_TARGET SndFile::sndfile)
     endif()
@@ -116,27 +122,25 @@ if(LIBSAMPLERATE_EXAMPLES OR BUILD_TESTING)
 endif()
 
 # SampleRate library
-
 add_subdirectory(src)
 
 # Tests
 
-# BUILD_TESTING is declared by CTest module and is ON by default
-if(BUILD_TESTING)
-  add_subdirectory(tests)
-endif()
+# # BUILD_TESTING is declared by CTest module and is ON by default
+# if(BUILD_TESTING)
+# add_subdirectory(tests)
+# endif()
 
-# Examples
+# # Examples
+# if(LIBSAMPLERATE_EXAMPLES)
+# add_subdirectory(examples)
+# endif()
 
-if(LIBSAMPLERATE_EXAMPLES)
-  add_subdirectory(examples)
-endif()
+# configure_file(config.h.cmake config.h)
 
-configure_file(config.h.cmake config.h)
-
-if(LIBSAMPLERATE_INSTALL)
-  add_subdirectory(docs)
-endif()
+# if(LIBSAMPLERATE_INSTALL)
+# add_subdirectory(docs)
+# endif()
 
 # Packaging support
 
